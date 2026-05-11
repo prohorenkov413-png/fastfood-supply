@@ -40,14 +40,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FastFood Supply</title>
-    <style>
-        /* ========== ОБЩИЕ СТИЛИ ========== */
+   /* ========== ТЁМНАЯ ТЕМА ========== */
+:root {
+    --primary-color: #6c3b9e;      /* тёмно-фиолетовый */
+    --primary-dark: #542c7a;       /* тёмно-фиолетовый (тёмнее) */
+    --primary-light: #8b5ccf;      /* светлый фиолетовый */
+    --header-bg: #2a2a2a;          /* серая шапка */
+    --bg-dark: #1e1e1e;            /* тёмно-серый фон */
+    --card-bg: #2d2d2d;            /* фон карточек */
+    --text-light: #ffffff;         /* белый текст */
+    --text-gray: #aaaaaa;          /* серый текст */
+    --border-color: #3d3d3d;       /* цвет границ */
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body { 
     font-family: 'Segoe UI', 'Roboto', Arial, sans-serif; 
-    background: #f0f2f5; 
-    color: #1a1a1a;
+    background: var(--bg-dark); 
+    color: var(--text-light);
 }
 
 .container { 
@@ -56,15 +67,16 @@ body {
     padding: 0 20px; 
 }
 
-/* ========== ШАПКА (как на Ozon) ========== */
+/* ========== ШАПКА (СЕРАЯ) ========== */
 header { 
-    background: white; 
-    color: #1a1a1a; 
+    background: var(--header-bg); 
+    color: var(--text-light); 
     padding: 12px 0; 
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     position: sticky;
     top: 0;
     z-index: 100;
+    border-bottom: 1px solid #3d3d3d;
 }
 
 .header-inner { 
@@ -80,11 +92,12 @@ header {
     font-weight: 700; 
 }
 .logo a { 
-    color: #ff6b00; 
+    color: var(--text-light); 
     text-decoration: none; 
+    transition: color 0.2s;
 }
 .logo a:hover { 
-    color: #e05a00; 
+    color: var(--primary-light); 
 }
 
 /* Навигация */
@@ -95,76 +108,93 @@ nav {
     flex-wrap: wrap;
 }
 nav a { 
-    color: #1a1a1a; 
+    color: var(--text-light); 
     text-decoration: none; 
     font-size: 14px;
     transition: color 0.2s;
 }
 nav a:hover { 
-    color: #ff6b00; 
+    color: var(--primary-light); 
 }
 
 /* Кнопка корзины */
 nav a:last-child {
-    background: #ff6b00;
+    background: var(--primary-color);
     color: white;
     padding: 8px 16px;
     border-radius: 30px;
     font-weight: 600;
 }
 nav a:last-child:hover {
-    background: #e05a00;
+    background: var(--primary-dark);
 }
 
-/* ========== КАРТОЧКИ ТОВАРОВ (как на WB/Ozon) ========== */
+/* Кнопка выхода */
+nav form button {
+    background: #3d3d3d !important;
+    color: white !important;
+    border: none !important;
+    padding: 8px 16px !important;
+    border-radius: 30px !important;
+    cursor: pointer !important;
+    font-weight: 500 !important;
+    transition: background 0.2s !important;
+}
+nav form button:hover {
+    background: #555 !important;
+}
+
+/* ========== КАРТОЧКИ ТОВАРОВ ========== */
 .product-grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
-    gap: 20px; 
+    gap: 25px; 
     margin: 30px 0;
 }
 
 .product-card { 
-    background: white; 
+    background: var(--card-bg); 
     border-radius: 12px; 
-    padding: 12px; 
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 15px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     transition: transform 0.2s, box-shadow 0.2s;
-    position: relative;
+    border: 1px solid var(--border-color);
 }
 .product-card:hover { 
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    border-color: var(--primary-color);
 }
 
 .product-card img { 
     width: 100%; 
-    height: 220px; 
+    height: 200px; 
     object-fit: contain; 
     border-radius: 8px; 
-    background: #f8f9fa;
+    background: #1a1a1a;
     margin-bottom: 10px;
 }
 
 .product-card h3 { 
-    font-size: 14px; 
+    font-size: 15px; 
     font-weight: 500;
-    margin: 8px 0;
+    margin: 10px 0;
     line-height: 1.4;
-    height: 40px;
+    height: 42px;
     overflow: hidden;
+    color: var(--text-light);
 }
 
 .product-card .price { 
-    font-size: 18px; 
-    color: #ff6b00; 
+    font-size: 20px; 
+    color: var(--primary-light); 
     font-weight: 700;
-    margin: 8px 0;
+    margin: 10px 0;
 }
 
 .product-card .btn { 
     display: block;
-    background: #ff6b00;
+    background: var(--primary-color);
     color: white;
     text-align: center;
     padding: 10px;
@@ -175,141 +205,86 @@ nav a:last-child:hover {
     transition: background 0.2s;
 }
 .product-card .btn:hover {
-    background: #e05a00;
+    background: var(--primary-dark);
 }
 
-/* ========== СТРАНИЦА ТОВАРА (детально) ========== */
+/* ========== КНОПКИ И ФОРМЫ ========== */
+button, .btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+button:hover, .btn:hover {
+    background: var(--primary-dark);
+}
+
+/* ========== СТРАНИЦА ТОВАРА ========== */
 .product-detail {
     display: flex;
     gap: 40px;
-    background: white;
-    padding: 30px;
-    border-radius: 16px;
+    background: var(--card-bg);
+    padding: 35px;
+    border-radius: 20px;
     margin: 30px 0;
+    border: 1px solid var(--border-color);
 }
 .product-detail img {
     max-width: 400px;
     width: 100%;
-    border-radius: 12px;
+    border-radius: 16px;
 }
-.product-info {
-    flex: 1;
-}
-.product-info h1 {
-    font-size: 28px;
-    margin-bottom: 15px;
-}
-.product-info .price {
+.product-detail .price {
     font-size: 32px;
-    color: #ff6b00;
+    color: var(--primary-light);
     font-weight: 700;
     margin: 15px 0;
-}
-.product-info button {
-    background: #ff6b00;
-    color: white;
-    border: none;
-    padding: 14px 28px;
-    border-radius: 40px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 20px;
-}
-.product-info button:hover {
-    background: #e05a00;
 }
 
 /* ========== КОРЗИНА ========== */
 .cart-table {
     width: 100%;
-    background: white;
-    border-radius: 12px;
+    background: var(--card-bg);
+    border-radius: 16px;
     overflow: hidden;
 }
 .cart-table th {
-    background: #f8f9fa;
+    background: #3a3a3a;
     padding: 15px;
     text-align: left;
 }
 .cart-table td {
     padding: 15px;
-    border-bottom: 1px solid #eee;
-}
-.checkout-btn {
-    background: #ff6b00;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 40px;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 20px;
-    font-weight: 600;
-}
-
-/* ========== ФОРМЫ ========== */
-form input, form select, form textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    font-size: 14px;
-}
-button[type="submit"] {
-    background: #ff6b00;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 40px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
+    border-bottom: 1px solid #3d3d3d;
 }
 
 /* ========== ФУТЕР ========== */
 footer { 
-    background: white; 
-    color: #666; 
+    background: var(--header-bg); 
+    color: var(--text-gray); 
     text-align: center; 
     padding: 30px; 
     margin-top: 60px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
 }
 
-/* ========== АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ ========== */
+/* ========== АДАПТАЦИЯ ========== */
 @media (max-width: 768px) {
     .product-grid {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 12px;
+        gap: 15px;
     }
     .product-card img {
-        height: 160px;
+        height: 140px;
     }
     .product-detail {
         flex-direction: column;
         padding: 20px;
     }
-    .header-inner {
-        flex-direction: column;
-        text-align: center;
-    }
 }
-/* Кнопка выхода */
-nav form button {
-    background: #ff4444 !important;
-    color: white !important;
-    border: none !important;
-    padding: 8px 16px !important;
-    border-radius: 30px !important;
-    cursor: pointer !important;
-    font-weight: 500 !important;
-    transition: background 0.2s !important;
-}
-nav form button:hover {
-    background: #cc0000 !important;
-}
-    </style>
 </head>
 <body>
     <header>

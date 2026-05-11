@@ -14,7 +14,7 @@
             {% csrf_token %}
             
             {% if form.errors %}
-            <div style="background: #fff3cd; border: 1px solid #ffeeba; border-radius: 12px; padding: 15px; margin-bottom: 20px;">
+           <div style="background: #2d2d2d; border-radius: 20px; padding: 35px; box-shadow: 0 8px 25px rgba(0,0,0,0.3); border: 1px solid #3d3d3d;">
                 <div style="color: #856404; font-weight: 500;">⚠️ Пожалуйста, исправьте ошибки:</div>
                 <ul style="margin: 10px 0 0 20px; color: #856404;">
                     {% for field in form %}
@@ -42,7 +42,7 @@
                     📧 Email
                 </label>
                 <input type="email" name="email" value="{{ form.email.value|default:'' }}" required
-                       style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 15px;">
+                       style="width: 100%; padding: 12px 15px; border: 1px solid #3d3d3d; border-radius: 12px; font-size: 15px; background: #1e1e1e; color: white;"
             </div>
             
             <div style="margin-bottom: 20px;">
