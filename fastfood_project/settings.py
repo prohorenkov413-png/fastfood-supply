@@ -15,7 +15,12 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-your-secret-key-her
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 # РАЗРЕШЁННЫЕ ХОСТЫ (укажите ваш домен)
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'fastfood-supply.onrender.com',
+    '.onrender.com',  # разрешает все поддомены render.com
+]
 
 # Безопасность (Обязательно для продакшна)
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://localhost,http://127.0.0.1').split(',')
