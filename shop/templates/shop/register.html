@@ -2,21 +2,21 @@
 {% block content %}
 
 <div style="max-width: 500px; margin: 50px auto;">
-    <div style="background: white; border-radius: 20px; padding: 35px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);">
+    <div style="background: #2d2d2d; border-radius: 20px; padding: 35px; box-shadow: 0 8px 25px rgba(0,0,0,0.3); border: 1px solid #3d3d3d;">
         
         <div style="text-align: center; margin-bottom: 25px;">
             <div style="font-size: 50px;">🍔</div>
-            <h1 style="font-size: 28px; margin-bottom: 8px;">Создание аккаунта</h1>
-            <p style="color: #666;">Заполните форму, чтобы зарегистрироваться</p>
+            <h1 style="font-size: 28px; margin-bottom: 8px; color: white;">Создание аккаунта</h1>
+            <p style="color: #aaaaaa;">Заполните форму, чтобы зарегистрироваться</p>
         </div>
         
         <form method="post">
             {% csrf_token %}
             
             {% if form.errors %}
-           <div style="background: #2d2d2d; border-radius: 20px; padding: 35px; box-shadow: 0 8px 25px rgba(0,0,0,0.3); border: 1px solid #3d3d3d;">
-                <div style="color: #856404; font-weight: 500;">⚠️ Пожалуйста, исправьте ошибки:</div>
-                <ul style="margin: 10px 0 0 20px; color: #856404;">
+            <div style="background: #332d00; border: 1px solid #665c00; border-radius: 12px; padding: 15px; margin-bottom: 20px;">
+                <div style="color: #ffd966; font-weight: 500;">⚠️ Пожалуйста, исправьте ошибки:</div>
+                <ul style="margin: 10px 0 0 20px; color: #ffd966;">
                     {% for field in form %}
                         {% for error in field.errors %}
                             <li>{{ error }}</li>
@@ -27,69 +27,51 @@
             {% endif %}
             
             <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">
-                    👤 Имя пользователя
-                </label>
+                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #aaaaaa;">👤 Имя пользователя</label>
                 <input type="text" name="username" value="{{ form.username.value|default:'' }}" required
-                       style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 15px;">
-                <div style="font-size: 12px; color: #888; margin-top: 5px;">
-                    Только буквы, цифры и @/./+/-/_
-                </div>
+                       style="width: 100%; padding: 12px 15px; border: 1px solid #5a5a5a; border-radius: 12px; font-size: 15px; background: #1e1e1e; color: #cccccc;">
+                <div style="font-size: 12px; color: #777777; margin-top: 5px;">Только буквы, цифры и @/./+/-/_</div>
             </div>
             
             <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">
-                    📧 Email
-                </label>
+                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #aaaaaa;">📧 Email</label>
                 <input type="email" name="email" value="{{ form.email.value|default:'' }}" required
-                       style="width: 100%; padding: 12px 15px; border: 1px solid #3d3d3d; border-radius: 12px; font-size: 15px; background: #1e1e1e; color: white;"
+                       style="width: 100%; padding: 12px 15px; border: 1px solid #5a5a5a; border-radius: 12px; font-size: 15px; background: #1e1e1e; color: #cccccc;">
             </div>
             
             <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">
-                    📞 Телефон
-                </label>
+                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #aaaaaa;">📞 Телефон</label>
                 <input type="text" name="phone" value="{{ form.phone.value|default:'' }}" required
-                       style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 15px;">
+                       style="width: 100%; padding: 12px 15px; border: 1px solid #5a5a5a; border-radius: 12px; font-size: 15px; background: #1e1e1e; color: #cccccc;">
             </div>
             
             <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">
-                    📍 Адрес доставки
-                </label>
+                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #aaaaaa;">📍 Адрес доставки</label>
                 <textarea name="address" rows="3" required
-                          style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 15px;">{{ form.address.value|default:'' }}</textarea>
+                          style="width: 100%; padding: 12px 15px; border: 1px solid #5a5a5a; border-radius: 12px; font-size: 15px; background: #1e1e1e; color: #cccccc;">{{ form.address.value|default:'' }}</textarea>
             </div>
             
             <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">
-                    🔒 Пароль
-                </label>
+                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #aaaaaa;">🔒 Пароль</label>
                 <input type="password" name="password1" required
-                       style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 15px;">
-                <div style="font-size: 12px; color: #888; margin-top: 5px;">
-                    Не менее 8 символов. Не должен быть слишком простым.
-                </div>
+                       style="width: 100%; padding: 12px 15px; border: 1px solid #5a5a5a; border-radius: 12px; font-size: 15px; background: #1e1e1e; color: #cccccc;">
+                <div style="font-size: 12px; color: #777777; margin-top: 5px;">Не менее 8 символов. Не должен быть слишком простым.</div>
             </div>
             
             <div style="margin-bottom: 25px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">
-                    🔒 Подтверждение пароля
-                </label>
+                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #aaaaaa;">🔒 Подтверждение пароля</label>
                 <input type="password" name="password2" required
-                       style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 15px;">
+                       style="width: 100%; padding: 12px 15px; border: 1px solid #5a5a5a; border-radius: 12px; font-size: 15px; background: #1e1e1e; color: #cccccc;">
             </div>
             
-            <button type="submit" style="width: 100%; background: #6b6b6b; color: white; padding: 14px; border: none; border-radius: 40px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+            <button type="submit" style="width: 100%; background: #8b8b8b; color: #1a1a1a; font-weight: 700; padding: 14px; border: none; border-radius: 40px; font-size: 16px; cursor: pointer;">
                 🚀 Зарегистрироваться
             </button>
         </form>
         
-        <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee;">
-            <p style="color: #666;">Уже есть аккаунт?</p>
-            <a href="/login/" style="display: inline-block; background: #f0f2f5; color: #6b6b6b; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: 500;">
-                Войти в аккаунт →
-            </a>
+        <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #3d3d3d;">
+            <p style="color: #aaaaaa;">Уже есть аккаунт?</p>
+            <a href="/login/" style="color: #adadad; text-decoration: none;">Войти в аккаунт →</a>
         </div>
         
     </div>
