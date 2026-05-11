@@ -40,23 +40,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FastFood Supply</title>
+    <style>
    /* ========== ТЁМНАЯ ТЕМА ========== */
 :root {
-    --primary-color: #6c3b9e;      /* тёмно-фиолетовый */
-    --primary-dark: #542c7a;       /* тёмно-фиолетовый (тёмнее) */
-    --primary-light: #8b5ccf;      /* светлый фиолетовый */
-    --header-bg: #2a2a2a;          /* серая шапка */
-    --bg-dark: #1e1e1e;            /* тёмно-серый фон */
-    --card-bg: #2d2d2d;            /* фон карточек */
-    --text-light: #ffffff;         /* белый текст */
-    --text-gray: #aaaaaa;          /* серый текст */
-    --border-color: #3d3d3d;       /* цвет границ */
+    --primary-color: #6c3b9e;
+    --primary-dark: #542c7a;
+    --primary-light: #8b5ccf;
+    --header-bg: #2a2a2a;
+    --bg-dark: #1e1e1e;
+    --card-bg: #2d2d2d;
+    --text-light: #ffffff;
+    --text-gray: #aaaaaa;
+    --border-color: #3d3d3d;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body { 
-    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif; 
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif; 
     background: var(--bg-dark); 
     color: var(--text-light);
 }
@@ -67,7 +68,6 @@ body {
     padding: 0 20px; 
 }
 
-/* ========== ШАПКА (СЕРАЯ) ========== */
 header { 
     background: var(--header-bg); 
     color: var(--text-light); 
@@ -76,7 +76,7 @@ header {
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 1px solid #3d3d3d;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .header-inner { 
@@ -87,37 +87,14 @@ header {
     gap: 15px;
 }
 
-.logo { 
-    font-size: 24px; 
-    font-weight: 700; 
-}
-.logo a { 
-    color: var(--text-light); 
-    text-decoration: none; 
-    transition: color 0.2s;
-}
-.logo a:hover { 
-    color: var(--primary-light); 
-}
+.logo { font-size: 24px; font-weight: 700; }
+.logo a { color: var(--text-light); text-decoration: none; transition: color 0.2s; }
+.logo a:hover { color: var(--primary-light); }
 
-/* Навигация */
-nav { 
-    display: flex; 
-    gap: 20px; 
-    align-items: center;
-    flex-wrap: wrap;
-}
-nav a { 
-    color: var(--text-light); 
-    text-decoration: none; 
-    font-size: 14px;
-    transition: color 0.2s;
-}
-nav a:hover { 
-    color: var(--primary-light); 
-}
+nav { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+nav a { color: var(--text-light); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+nav a:hover { color: var(--primary-light); }
 
-/* Кнопка корзины */
 nav a:last-child {
     background: var(--primary-color);
     color: white;
@@ -125,11 +102,8 @@ nav a:last-child {
     border-radius: 30px;
     font-weight: 600;
 }
-nav a:last-child:hover {
-    background: var(--primary-dark);
-}
+nav a:last-child:hover { background: var(--primary-dark); }
 
-/* Кнопка выхода */
 nav form button {
     background: #3d3d3d !important;
     color: white !important;
@@ -138,13 +112,9 @@ nav form button {
     border-radius: 30px !important;
     cursor: pointer !important;
     font-weight: 500 !important;
-    transition: background 0.2s !important;
 }
-nav form button:hover {
-    background: #555 !important;
-}
+nav form button:hover { background: #555 !important; }
 
-/* ========== КАРТОЧКИ ТОВАРОВ ========== */
 .product-grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
@@ -202,13 +172,9 @@ nav form button:hover {
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
-    transition: background 0.2s;
 }
-.product-card .btn:hover {
-    background: var(--primary-dark);
-}
+.product-card .btn:hover { background: var(--primary-dark); }
 
-/* ========== КНОПКИ И ФОРМЫ ========== */
 button, .btn {
     background: var(--primary-color);
     color: white;
@@ -216,52 +182,9 @@ button, .btn {
     padding: 10px 20px;
     border-radius: 30px;
     cursor: pointer;
-    transition: background 0.2s;
 }
-button:hover, .btn:hover {
-    background: var(--primary-dark);
-}
+button:hover, .btn:hover { background: var(--primary-dark); }
 
-/* ========== СТРАНИЦА ТОВАРА ========== */
-.product-detail {
-    display: flex;
-    gap: 40px;
-    background: var(--card-bg);
-    padding: 35px;
-    border-radius: 20px;
-    margin: 30px 0;
-    border: 1px solid var(--border-color);
-}
-.product-detail img {
-    max-width: 400px;
-    width: 100%;
-    border-radius: 16px;
-}
-.product-detail .price {
-    font-size: 32px;
-    color: var(--primary-light);
-    font-weight: 700;
-    margin: 15px 0;
-}
-
-/* ========== КОРЗИНА ========== */
-.cart-table {
-    width: 100%;
-    background: var(--card-bg);
-    border-radius: 16px;
-    overflow: hidden;
-}
-.cart-table th {
-    background: #3a3a3a;
-    padding: 15px;
-    text-align: left;
-}
-.cart-table td {
-    padding: 15px;
-    border-bottom: 1px solid #3d3d3d;
-}
-
-/* ========== ФУТЕР ========== */
 footer { 
     background: var(--header-bg); 
     color: var(--text-gray); 
@@ -271,20 +194,11 @@ footer {
     border-top: 1px solid var(--border-color);
 }
 
-/* ========== АДАПТАЦИЯ ========== */
 @media (max-width: 768px) {
-    .product-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 15px;
-    }
-    .product-card img {
-        height: 140px;
-    }
-    .product-detail {
-        flex-direction: column;
-        padding: 20px;
-    }
+    .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+    .product-card img { height: 140px; }
 }
+    </style>
 </head>
 <body>
     <header>
