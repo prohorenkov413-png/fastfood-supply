@@ -1,0 +1,33 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+<h1>Оформление заказа</h1>
+
+<p><strong>Сумма заказа:</strong> <span class="price">{{ total }} ₽</span></p>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <p>
+        <label><strong>Способ доставки:</strong></label><br>
+        <select name="delivery_method">
+            {% for method in delivery_methods %}
+                <option>{{ method }}</option>
+            {% endfor %}
+        </select>
+    </p>
+    
+    <p>
+        <label><strong>Способ оплаты:</strong></label><br>
+        <select name="payment_method">
+            {% for method in payment_methods %}
+                <option>{{ method }}</option>
+            {% endfor %}
+        </select>
+    </p>
+    
+    <button type="submit">Подтвердить заказ</button>
+</form>
+
+<br>
+<a href="/cart/">← Назад к корзине</a>
+{% endblock %} 

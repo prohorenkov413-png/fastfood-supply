@@ -1,0 +1,25 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+<div style="max-width: 400px; margin: 50px auto; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <h2 style="text-align: center; margin-bottom: 20px; color: #1a1a1a;">🔐 Вход в аккаунт</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 500;">Имя пользователя</label>
+            <input type="text" name="username" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 500;">Пароль</label>
+            <input type="password" name="password" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+        </div>
+        <button type="submit" style="width: 100%; background: #ff6b00; color: white; padding: 12px; border: none; border-radius: 40px; font-weight: 600; cursor: pointer;">
+            Войти
+        </button>
+    </form>
+    
+    <p style="text-align: center; margin-top: 20px; color: #666;">
+        Нет аккаунта? <a href="/register/" style="color: #ff6b00;">Зарегистрироваться</a>
+    </p>
+</div>
+{% endblock %}

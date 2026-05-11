@@ -1,0 +1,30 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+
+<div class="product-detail">
+    {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    {% else %}
+        <div style="width: 400px; height: 400px; background: #f0f2f5; display: flex; align-items: center; justify-content: center; border-radius: 12px;">
+            <span style="font-size: 64px;">📦</span>
+        </div>
+    {% endif %}
+    
+    <div class="product-info">
+        <h1>{{ product.name }}</h1>
+        <div class="price">{{ product.price }} ₽</div>
+        <p style="color: #00a650; margin: 10px 0;">
+            {% if product.stock > 0 %}В наличии ({{ product.stock }} шт){% else %}Нет в наличии{% endif %}
+        </p>
+        <p style="margin: 20px 0; line-height: 1.6;">{{ product.description }}</p>
+        
+        <form method="post" action="/add-to-cart/{{ product.id }}/">
+            {% csrf_token %}
+            <button type="submit">🛒 Добавить в корзину</button>
+        </form>
+        
+        <a href="/catalog/" style="display: inline-block; margin-top: 20px; color: #ff6b00;">← Назад в каталог</a>
+    </div>
+</div>
+
+{% endblock %}

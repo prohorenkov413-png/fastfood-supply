@@ -1,0 +1,78 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+
+<div style="max-width: 1000px; margin: 0 auto;">
+    <h1 style="font-size: 28px; margin-bottom: 10px;">💬 Служба поддержки</h1>
+    <p style="color: #666; margin-bottom: 30px;">Мы на связи! Ответим на ваш вопрос в течение 24 часов.</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+        
+        <!-- ЛЕВАЯ КОЛОНКА: ФОРМА ОБРАЩЕНИЯ -->
+        <div style="background: white; border-radius: 16px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+            <h2 style="font-size: 20px; margin-bottom: 20px;">✍️ Новое обращение</h2>
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Тема обращения</label>
+                    <input type="text" name="subject" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; font-size: 14px;">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Сообщение</label>
+                    <textarea name="message" rows="5" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; font-size: 14px; resize: vertical;"></textarea>
+                </div>
+                
+                <button type="submit" style="width: 100%; background: #ff6b00; color: white; border: none; padding: 12px; border-radius: 40px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+                    📤 Отправить сообщение
+                </button>
+            </form>
+            
+            <!-- Контакты для быстрой связи -->
+            <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee;">
+                <div style="font-size: 13px; color: #666; text-align: center;">
+                    <div style="margin-bottom: 5px;">📞 Горячая линия: 8-800-555-00-00</div>
+                    <div style="margin-bottom: 5px;">📧 Email: support@fastfood.ru</div>
+                    <div>🕐 Режим работы: Пн-Пт 9:00-20:00</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ПРАВАЯ КОЛОНКА: СПИСОК ОБРАЩЕНИЙ -->
+        <div style="background: white; border-radius: 16px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+            <h2 style="font-size: 20px; margin-bottom: 20px;">📋 Мои обращения</h2>
+            
+            {% if tickets %}
+                <div style="max-height: 400px; overflow-y: auto;">
+                    {% for ticket in tickets %}
+                    <div style="border-bottom: 1px solid #eee; padding: 15px 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <div style="font-weight: 600;">{{ ticket.subject }}</div>
+                            <div style="font-size: 11px; padding: 3px 8px; border-radius: 20px; {% if ticket.is_resolved %}background: #d4edda; color: #155724;{% else %}background: #fff3cd; color: #856404;{% endif %}">
+                                {% if ticket.is_resolved %}✓ Решено{% else %}⏳ В обработке{% endif %}
+                            </div>
+                        </div>
+                        <div style="font-size: 13px; color: #666; margin-bottom: 8px;">{{ ticket.message|truncatechars:100 }}</div>
+                        <div style="font-size: 11px; color: #999;">{{ ticket.created_at|date:"d.m.Y H:i" }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div style="text-align: center; padding: 40px 20px;">
+                    <div style="font-size: 48px; margin-bottom: 15px;">💬</div>
+                    <div style="font-weight: 500; margin-bottom: 8px;">Нет обращений</div>
+                    <div style="font-size: 13px; color: #666;">У вас пока нет отправленных сообщений</div>
+                </div>
+            {% endif %}
+        </div>
+        
+    </div>
+    
+    <!-- КНОПКА НАЗАД -->
+    <div style="margin-top: 30px; text-align: center;">
+        <a href="/" style="display: inline-block; padding: 10px 24px; background: #f0f2f5; color: #333; text-decoration: none; border-radius: 40px; font-size: 14px;">← На главную</a>
+    </div>
+</div>
+
+{% endblock %}
