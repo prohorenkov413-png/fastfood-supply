@@ -15,7 +15,7 @@
         <div>
             <!-- Аватар -->
             <div style="background: white; border-radius: 20px; padding: 30px 20px; text-align: center; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #ff6b00, #ff8c3a); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #6b6b6b, #6b6b6b); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
                     <span style="font-size: 48px;">{{ user.username|slice:":1"|upper }}</span>
                 </div>
                 <h3 style="margin-bottom: 5px;">{{ user.username }}</h3>
@@ -24,7 +24,7 @@
             
             <!-- Меню -->
             <div style="background: white; border-radius: 20px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                <div style="padding: 12px; background: #f0f2f5; border-radius: 12px; color: #ff6b00; font-weight: 500;">
+                <div style="padding: 12px; background: #f0f2f5; border-radius: 12px; color: #6b6b6b; font-weight: 500;">
                     📋 Личные данные
                 </div>
                 <a href="/catalog/" style="display: block; padding: 12px; color: #666; text-decoration: none; border-radius: 12px; transition: background 0.2s; margin-top: 5px;">
@@ -128,7 +128,7 @@
                         <div style="font-size: 48px; margin-bottom: 15px;">📭</div>
                         <div style="font-weight: 500; margin-bottom: 8px;">У вас пока нет заказов</div>
                         <div style="color: #666; font-size: 14px; margin-bottom: 20px;">Перейдите в каталог и сделайте первый заказ!</div>
-                        <a href="/catalog/" style="display: inline-block; background: #ff6b00; color: white; padding: 10px 24px; border-radius: 40px; text-decoration: none;">Перейти в каталог</a>
+                        <a href="/catalog/" style="display: inline-block; background: #6b6b6b; color: white; padding: 10px 24px; border-radius: 40px; text-decoration: none;">Перейти в каталог</a>
                     </div>
                 {% endif %}
             </div>
