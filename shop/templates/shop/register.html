@@ -1,12 +1,98 @@
- {% extends 'shop/base.html' %}
+{% extends 'shop/base.html' %}
 {% block content %}
-<h1>Регистрация</h1>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Зарегистрироваться</button>
-</form>
+<div style="max-width: 500px; margin: 50px auto;">
+    <div style="background: white; border-radius: 20px; padding: 35px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);">
+        
+        <div style="text-align: center; margin-bottom: 25px;">
+            <div style="font-size: 50px;">🍔</div>
+            <h1 style="font-size: 28px; margin-bottom: 8px;">Создание аккаунта</h1>
+            <p style="color: #666;">Заполните форму, чтобы зарегистрироваться</p>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            {% if form.errors %}
+            <div style="background: #fff3cd; border: 1px solid #ffeeba; border-radius: 12px; padding: 15px; margin-bottom: 20px;">
+                <div style="color: #856404; font-weight: 500;">⚠️ Пожалуйста, исправьте ошибки:</div>
+                <ul style="margin: 10px 0 0 20px; color: #856404;">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">
+                    👤 Имя пользователя
+                </label>
+                <input type="text" name="username" value="{{ form.username.value|default:'' }}" required
+                       style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 15px;">
+                <div style="font-size: 12px; color: #888; margin-top: 5px;">
+                    Только буквы, цифры и @/./+/-/_
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">
+                    📧 Email
+                </label>
+                <input type="email" name="email" value="{{ form.email.value|default:'' }}" required
+                       style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 15px;">
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">
+                    📞 Телефон
+                </label>
+                <input type="text" name="phone" value="{{ form.phone.value|default:'' }}" required
+                       style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 15px;">
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">
+                    📍 Адрес доставки
+                </label>
+                <textarea name="address" rows="3" required
+                          style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 15px;">{{ form.address.value|default:'' }}</textarea>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">
+                    🔒 Пароль
+                </label>
+                <input type="password" name="password1" required
+                       style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 15px;">
+                <div style="font-size: 12px; color: #888; margin-top: 5px;">
+                    Не менее 8 символов. Не должен быть слишком простым.
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">
+                    🔒 Подтверждение пароля
+                </label>
+                <input type="password" name="password2" required
+                       style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 15px;">
+            </div>
+            
+            <button type="submit" style="width: 100%; background: #ff6b00; color: white; padding: 14px; border: none; border-radius: 40px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+                🚀 Зарегистрироваться
+            </button>
+        </form>
+        
+        <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee;">
+            <p style="color: #666;">Уже есть аккаунт?</p>
+            <a href="/login/" style="display: inline-block; background: #f0f2f5; color: #ff6b00; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: 500;">
+                Войти в аккаунт →
+            </a>
+        </div>
+        
+    </div>
+</div>
 
-<p>Уже есть аккаунт? <a href="/login/">Войдите</a></p>
 {% endblock %}
