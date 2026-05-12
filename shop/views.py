@@ -174,3 +174,11 @@ def checkout(request):
         'delivery_methods': ['Курьером', 'Самовывоз', 'Почта России'],
         'payment_methods': ['Наличными при получении', 'Картой онлайн', 'Безналичный расчёт'],
     })
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
+# Вывести всех пользователей в консоль (логи Render)
+print("=== ВСЕ ПОЛЬЗОВАТЕЛИ В БАЗЕ ===")
+for u in User.objects.all():
+    print(f"Логин: {u.username}, Email: {u.email}, ID: {u.id}")
+print("================================")
