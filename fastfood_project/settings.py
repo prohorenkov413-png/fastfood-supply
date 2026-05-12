@@ -1,9 +1,22 @@
 import os
 from pathlib import Path
-from dotenv import load_dotenv
 
 # Загружаем переменные окружения из .env файла (для секретных ключей)
-load_dotenv()
+
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Временные настройки (без .env)
+SECRET_KEY = 'django-insecure-temporary-key-for-render'
+DEBUG = False
+ALLOWED_HOSTS = ['fastfood-supply.onrender.com', 'localhost', '127.0.0.1']
+
+# Настройки перенаправления
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
 
 # Базовая директория проекта
 BASE_DIR = Path(__file__).resolve().parent.parent
