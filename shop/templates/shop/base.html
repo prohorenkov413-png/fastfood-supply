@@ -1,32 +1,23 @@
- <!DOCTYPE html>
-<html>{% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Основные мета-теги -->
     <title>FastFood Supply - Поставка расходных материалов для фастфуда</title>
-    <meta name="description" content="Упаковка, перчатки, стаканы и всё для фастфуда. Опт и розница. Быстрая доставка по всей России.">
+    <meta name="description" content="Упаковка, перчатки, стаканы и всё для фастфуда. Опт и розница. Быстрая доставка.">
     <meta name="keywords" content="фастфуд, упаковка, расходные материалы, перчатки, стаканы, бургер-боксы">
     <meta name="author" content="FastFood Supply">
     
-    <!-- Open Graph (для красивых ссылок в соцсетях) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="FastFood Supply - Поставка расходных материалов">
     <meta property="og:description" content="Всё для фастфуда в одном месте. Низкие цены, быстрая доставка.">
-    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/preview.jpg' %}">
-    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="http://127.0.0.1:8000/static/img/preview.jpg">
+    <meta property="og:url" content="http://127.0.0.1:8000/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="FastFood Supply">
     
-    <!-- Open Graph для превью ссылок -->
-<meta property="og:title" content="FastFood Supply - Поставка расходных материалов">
-<meta property="og:description" content="Упаковка, перчатки, стаканы и всё для фастфуда. Опт и розница. Быстрая доставка.">
-<meta property="og:image" content="http://127.0.0.1:8000/static/img/preview.jpg">
-<meta property="og:url" content="http://127.0.0.1:8000/">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="FastFood Supply">
@@ -35,207 +26,202 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
     
-    <!-- ... остальной CSS ... -->
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FastFood Supply</title>
     <style>
-   /* ========== ТЁМНАЯ ТЕМА ========== */
-:root {
- --primary-color: #6b6b6b;        /* основной серый */
-    --primary-dark: #555555;          /* тёмно-серый */
-    --primary-light: #999999;         /* светло-серый */
-    --header-bg: #2a2a2a;             /* серая шапка */
-    --bg-dark: #1e1e1e;               /* тёмно-серый фон */
-    --card-bg: #2d2d2d;               /* фон карточек */
-    --text-light: #ffffff;            /* белый текст */
-    --text-gray: #aaaaaa;             /* серый текст */
-    --border-color: #3d3d3d;          /* цвет границ */
-}
-}
+    /* ========== ТЁМНАЯ ТЕМА ========== */
+    :root {
+        --primary-color: #8b8b8b;
+        --primary-dark: #6b6b6b;
+        --primary-light: #adadad;
+        --header-bg: #2a2a2a;
+        --bg-dark: #1e1e1e;
+        --card-bg: #2d2d2d;
+        --text-light: #ffffff;
+        --text-gray: #aaaaaa;
+        --border-color: #3d3d3d;
+    }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-body { 
-    font-family: 'Segoe UI', Roboto, Arial, sans-serif; 
-    background: var(--bg-dark); 
-    color: var(--text-light);
-}
+    body { 
+        font-family: 'Segoe UI', Roboto, Arial, sans-serif; 
+        background: var(--bg-dark); 
+        color: var(--text-light);
+    }
 
-.container { 
-    max-width: 1300px; 
-    margin: 0 auto; 
-    padding: 0 20px; 
-}
+    .container { 
+        max-width: 1300px; 
+        margin: 0 auto; 
+        padding: 0 20px; 
+    }
 
-header { 
-    background: var(--header-bg); 
-    color: var(--text-light); 
-    padding: 12px 0; 
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-bottom: 1px solid var(--border-color);
-}
+    header { 
+        background: var(--header-bg); 
+        color: var(--text-light); 
+        padding: 12px 0; 
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 1px solid var(--border-color);
+    }
 
-.header-inner { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    flex-wrap: wrap; 
-    gap: 15px;
-}
+    .header-inner { 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        flex-wrap: wrap; 
+        gap: 15px;
+    }
 
-.logo { font-size: 24px; font-weight: 700; }
-.logo a { color: var(--text-light); text-decoration: none; transition: color 0.2s; }
-.logo a:hover { color: var(--primary-light); }
+    .logo { font-size: 24px; font-weight: 700; }
+    .logo a { color: var(--text-light); text-decoration: none; transition: color 0.2s; }
+    .logo a:hover { color: var(--primary-light); }
 
-nav { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
-nav a { color: var(--text-light); text-decoration: none; font-size: 14px; transition: color 0.2s; }
-nav a:hover { color: var(--primary-light); }
+    nav { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+    nav a { color: var(--text-light); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+    nav a:hover { color: var(--primary-light); }
 
-nav a:last-child {
-    background: var(--primary-color);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 30px;
-    font-weight: 600;
-}
-nav a:last-child:hover { background: var(--primary-dark); }
+    nav a:last-child {
+        background: var(--primary-color);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 30px;
+        font-weight: 600;
+    }
+    nav a:last-child:hover { background: var(--primary-dark); }
 
-nav form button {
-    background: #3d3d3d !important;
-    color: white !important;
-    border: none !important;
-    padding: 8px 16px !important;
-    border-radius: 30px !important;
-    cursor: pointer !important;
-    font-weight: 500 !important;
-}
-nav form button:hover { background: #555 !important; }
+    nav form button {
+        background: #3d3d3d !important;
+        color: white !important;
+        border: none !important;
+        padding: 8px 16px !important;
+        border-radius: 30px !important;
+        cursor: pointer !important;
+        font-weight: 500 !important;
+    }
+    nav form button:hover { background: #555 !important; }
 
-.product-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
-    gap: 25px; 
-    margin: 30px 0;
-}
+    .product-grid { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+        gap: 25px; 
+        margin: 30px 0;
+    }
 
-.product-card { 
-    background: var(--card-bg); 
-    border-radius: 12px; 
-    padding: 15px; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: 1px solid var(--border-color);
-}
-.product-card:hover { 
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    border-color: var(--primary-color);
-}
+    .product-card { 
+        background: var(--card-bg); 
+        border-radius: 12px; 
+        padding: 15px; 
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        transition: transform 0.2s, box-shadow 0.2s;
+        border: 1px solid var(--border-color);
+    }
+    .product-card:hover { 
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        border-color: var(--primary-color);
+    }
 
-.product-card img { 
-    width: 100%; 
-    height: 200px; 
-    object-fit: contain; 
-    border-radius: 8px; 
-    background: #1a1a1a;
-    margin-bottom: 10px;
-}
+    .product-card img { 
+        width: 100%; 
+        height: 200px; 
+        object-fit: contain; 
+        border-radius: 8px; 
+        background: #1a1a1a;
+        margin-bottom: 10px;
+    }
 
-.product-card h3 { 
-    font-size: 15px; 
-    font-weight: 500;
-    margin: 10px 0;
-    line-height: 1.4;
-    height: 42px;
-    overflow: hidden;
-    color: var(--text-light);
-}
+    .product-card h3 { 
+        font-size: 15px; 
+        font-weight: 500;
+        margin: 10px 0;
+        line-height: 1.4;
+        height: 42px;
+        overflow: hidden;
+        color: var(--text-light);
+    }
 
-.product-card .price { 
-    font-size: 20px; 
-    color: var(--primary-light); 
-    font-weight: 700;
-    margin: 10px 0;
-}
+    .product-card .price { 
+        font-size: 20px; 
+        color: var(--primary-light); 
+        font-weight: 700;
+        margin: 10px 0;
+    }
 
-.product-card .btn { 
-    display: block;
-    background: var(--primary-color);
-    color: white;
-    text-align: center;
-    padding: 10px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-}
-.product-card .btn:hover { background: var(--primary-dark); }
+    .product-card .btn { 
+        display: block;
+        background: var(--primary-color);
+        color: white;
+        text-align: center;
+        padding: 10px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .product-card .btn:hover { background: var(--primary-dark); }
 
-button, .btn {
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 30px;
-    cursor: pointer;
-}
-button:hover, .btn:hover { background: var(--primary-dark); }
+    button, .btn {
+        background: var(--primary-color);
+        color: #1a1a1a;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 700;
+    }
+    button:hover, .btn:hover { background: var(--primary-dark); }
 
-footer { 
-    background: var(--header-bg); 
-    color: var(--text-gray); 
-    text-align: center; 
-    padding: 30px; 
-    margin-top: 60px;
-    border-top: 1px solid var(--border-color);
-}
+    footer { 
+        background: var(--header-bg); 
+        color: var(--text-gray); 
+        text-align: center; 
+        padding: 30px; 
+        margin-top: 60px;
+        border-top: 1px solid var(--border-color);
+    }
 
-@media (max-width: 768px) {
-    .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-    .product-card img { height: 140px; }
-}
+    @media (max-width: 768px) {
+        .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+        .product-card img { height: 140px; }
+    }
     </style>
 </head>
 <body>
     <header>
         <div class="container header-inner">
             <div class="logo"><a href="/">🍔 FastFood Supply</a></div>
-           <nav>
-    <a href="/catalog/">📦 Каталог</a>
-    {% if user.is_authenticated %}
-        <a href="/profile/">👤 {{ user.username }}</a>
-        <a href="/support/">💬 Поддержка</a>
-        <form method="post" action="/logout/" style="display: inline; margin: 0;">
-            {% csrf_token %}
-            <button type="submit" style="background: #ff4444; color: white; border: none; padding: 8px 16px; border-radius: 30px; cursor: pointer; font-weight: 500; transition: background 0.2s;">
-                🚪 Выйти
-            </button>
-        </form>
-    {% else %}
-        <a href="/register/">📝 Регистрация</a>
-        <a href="/login/">🔐 Вход</a>
-    {% endif %}
-    <a href="/cart/">🛒 Корзина</a>
-</nav>
+            <nav>
+                <a href="/catalog/">📦 Каталог</a>
+                {% if user.is_authenticated %}
+                    <a href="/profile/">👤 {{ user.username }}</a>
+                    <a href="/support/">💬 Поддержка</a>
+                    <form method="post" action="/logout/" style="display: inline; margin: 0;">
+                        {% csrf_token %}
+                        <button type="submit">🚪 Выйти</button>
+                    </form>
+                {% else %}
+                    <a href="/register/">📝 Регистрация</a>
+                    <a href="/login/">🔐 Вход</a>
+                {% endif %}
+                <a href="/cart/">🛒 Корзина</a>
+            </nav>
         </div>
     </header>
-   <div class="container">
-    {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-                <div class="{% if message.tags %}{{ message.tags }}{% endif %}" style="padding: 12px; margin: 10px 0; border-radius: 8px; {% if message.tags == 'success' %}background: #d4edda; color: #155724;{% elif message.tags == 'error' %}background: #f8d7da; color: #721c24;{% else %}background: #cce5ff; color: #004085;{% endif %}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
-    {% block content %}{% endblock %}
-</div>
+
+    <div class="container">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="{% if message.tags %}{{ message.tags }}{% endif %}" style="padding: 12px; margin: 10px 0; border-radius: 8px; {% if message.tags == 'success' %}background: #d4edda; color: #155724;{% elif message.tags == 'error' %}background: #f8d7da; color: #721c24;{% else %}background: #cce5ff; color: #004085;{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+
     <footer>
         <p>© 2024 FastFood Supply. Все права защищены</p>
         <p>Поставка расходных материалов для фастфуда</p>
