@@ -1,48 +1,30 @@
 import os
 from pathlib import Path
 
-# Загружаем переменные окружения из .env файла (для секретных ключей)
-
-import os
-from pathlib import Path
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Временные настройки (без .env)
-SECRET_KEY = 'django-insecure-temporary-key-for-render'
-DEBUG = False
-ALLOWED_HOSTS = ['fastfood-supply.onrender.com', 'localhost', '127.0.0.1']
-
-# Настройки перенаправления
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-LOGIN_URL = '/login/'
-
-# Базовая директория проекта
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-# СЕКРЕТНЫЙ КЛЮЧ (берём из переменных окружения или используем запасной)
+# СЕКРЕТНЫЙ КЛЮЧ
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-your-secret-key-here-change-in-production')
 
-# РЕЖИМ ОТЛАДКИ (В ПРОДАКШНЕ ДОЛЖНО БЫТЬ FALSE!)
+# РЕЖИМ ОТЛАДКИ
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-# РАЗРЕШЁННЫЕ ХОСТЫ (укажите ваш домен)
+# РАЗРЕШЁННЫЕ ХОСТЫ
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     'fastfood-supply.onrender.com',
-    '.onrender.com',  # разрешает все поддомены render.com
+    '.onrender.com',
 ]
 
-# Безопасность (Обязательно для продакшна)
+# Безопасность
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://localhost,http://127.0.0.1').split(',')
 if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
-    SECURE_SSL_REDIRECT = False  # Включите True если есть SSL-сертификат
+    SECURE_SSL_REDIRECT = False
 
 # Приложения
 INSTALLED_APPS = [
@@ -53,14 +35,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',  # ДЛЯ СТАТИКИ В ПРОДАКШНЕ
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'shop',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # ОБЯЗАТЕЛЬНО ДЛЯ СТАТИКИ
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -91,7 +73,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'fastfood_project.wsgi.application'
 
-# БАЗА ДАННЫХ (SQLite для простоты, можно поменять на PostgreSQL)
+# БАЗА ДАННЫХ
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -113,24 +95,19 @@ TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True
 USE_TZ = True
 
-# ПОДДЕРЖКА ЯЗЫКОВ (русский/английский)
 LANGUAGES = [
     ('ru', 'Русский'),
     ('en', 'English'),
 ]
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 
-# СТАТИЧЕСКИЕ ФАЙЛЫ (CSS, JS)
+# СТАТИЧЕСКИЕ ФАЙЛЫ
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-# ДОПОЛНИТЕЛЬНЫЕ СТАТИЧЕСКИЕ ПАПКИ
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
-# МЕДИА-ФАЙЛЫ (картинки пользователей)
+# МЕДИА-ФАЙЛЫ
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -139,7 +116,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 
-# EMAIL (настройте для отправки писем)
+# EMAIL
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
 EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))
@@ -148,12 +125,12 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'no-reply@fastfood.ru')
 
-# АВТОМАТИЧЕСКОЕ ПРОЕКТИРОВАНИЕ КЛЮЧА
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# CLOUDINARY (для хранения картинок)
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'ваш_cloud_name',
-    'API_KEY': 'ваш_api_key',
-    'API_SECRET': 'ваш_api_secret',
+    'CLOUD_NAME': 'di9cwvouw',
+    'API_KEY': '374666843148328',
+    'API_SECRET': '5BMGS',
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
