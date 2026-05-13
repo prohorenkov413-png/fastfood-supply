@@ -9,6 +9,7 @@ from django.conf import settings
 from .models import Category, Product, Order, OrderItem, SupportTicket
 from .forms import RegistrationForm, ProfileForm, SupportForm
 from decimal import Decimal
+from django.http import HttpResponse
 
 def home(request):
     products = Product.objects.all()[:6]
@@ -174,6 +175,15 @@ def checkout(request):
         'delivery_methods': ['Курьером', 'Самовывоз', 'Почта России'],
         'payment_methods': ['Наличными при получении', 'Картой онлайн', 'Безналичный расчёт'],
     })
+
+def debug_images(request):
+    from shop.models import Product
+    result = "<h1>Отладка картинок</h1>"
+    for p in Product.objects.all():
+        result += f"<p><strong>{p.name}</strong><br>"
+        result += f"image поле: {p.image}<br>"
+        result += f"URL: {p.image.url if p.image else 'НЕТ КАРТИНКИ'}</p>"
+    return HttpResponse(result)
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -182,3 +192,13 @@ print("=== ВСЕ ПОЛЬЗОВАТЕЛИ В БАЗЕ ===")
 for u in User.objects.all():
     print(f"Логин: {u.username}, Email: {u.email}, ID: {u.id}")
 print("================================")
+
+def debug_images(request):
+    from shop.models import Product
+    from django.http import HttpResponse
+    result = "<h1>Отладка картинок</h1>"
+    for p in Product.objects.all():
+        result += f"<p><strong>{p.name}</strong><br>"
+        result += f"image поле: {p.image}<br>"
+        result += f"URL: {p.image.url if p.image else 'НЕТ КАРТИНКИ'}</p>"
+    return HttpResponse(result)
