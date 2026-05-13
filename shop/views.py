@@ -202,3 +202,12 @@ def debug_images(request):
         result += f"image поле: {p.image}<br>"
         result += f"URL: {p.image.url if p.image else 'НЕТ КАРТИНКИ'}</p>"
     return HttpResponse(result)
+
+def get_emoji(product):
+    emojis = {
+        'Упаковка': '📦',
+        'Бургер-бокс': '🍔',
+        'Перчатки': '🧤',
+        'Стаканы': '🥤',
+    }
+    return emojis.get(product.name, '🍽️')

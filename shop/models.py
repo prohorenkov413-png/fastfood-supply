@@ -14,6 +14,7 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'
 
 class Product(models.Model):
+    emoji = models.CharField(max_length=10, blank=True, default='🍔', verbose_name='Эмодзи')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     name = models.CharField(max_length=200, verbose_name='Название')
     slug = models.SlugField(unique=True)
