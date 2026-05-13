@@ -8,11 +8,11 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'stock')
+    list_display = ('name', 'price', 'stock', 'category', 'emoji')
     list_filter = ('category', 'stock')
     search_fields = ('name', 'description')
     prepopulated_fields = {'slug': ('name',)}
-    fields = ('category', 'name', 'slug', 'description', 'price', 'stock', 'image')
+    fields = ('category', 'name', 'slug', 'description', 'price', 'stock', 'image', 'emoji')
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):

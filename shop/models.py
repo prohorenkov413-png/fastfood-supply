@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 class Category(models.Model):
+    """Категория товара"""
     name = models.CharField(max_length=100, verbose_name='Название')
     slug = models.SlugField(unique=True)
     
@@ -14,7 +15,7 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'
 
 class Product(models.Model):
-    emoji = models.CharField(max_length=10, blank=True, default='🍔', verbose_name='Эмодзи')
+    """Товар"""
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     name = models.CharField(max_length=200, verbose_name='Название')
     slug = models.SlugField(unique=True)
@@ -22,6 +23,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
     stock = models.PositiveIntegerField(default=0, verbose_name='Наличие')
     image = models.ImageField(upload_to='products/', blank=True, null=True, verbose_name='Изображение')
+    emoji = models.CharField(max_length=10, blank=True, default='🍔', verbose_name='Эмодзи')
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
@@ -35,6 +37,7 @@ class Product(models.Model):
         verbose_name_plural = 'Товары'
 
 class CustomerProfile(models.Model):
+    """Расширенный профиль пользователя"""
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     phone = models.CharField(max_length=20, blank=True, verbose_name='Телефон')
     address = models.TextField(blank=True, verbose_name='Адрес доставки')
@@ -47,6 +50,7 @@ class CustomerProfile(models.Model):
         verbose_name_plural = 'Профили'
 
 class Order(models.Model):
+    """Заказ"""
     STATUS_CHOICES = [
         ('pending', 'Ожидает'),
         ('confirmed', 'Подтверждён'),
@@ -58,8 +62,8 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
-    delivery_method = models.CharField(max_length=50, blank=True)
-    payment_method = models.CharField(max_length=50, blank=True)
+    delivery_method = models.CharField(max_length=50, blank=True, verbose_name='Способ доставки')
+    payment_method = models.CharField(max_length=50, blank=True, verbose_name='Способ оплаты')
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     
     def __str__(self):
@@ -70,6 +74,7 @@ class Order(models.Model):
         verbose_name_plural = 'Заказы'
 
 class OrderItem(models.Model):
+    """Товар в заказе"""
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
@@ -79,6 +84,7 @@ class OrderItem(models.Model):
         return f'{self.product.name} x {self.quantity}'
 
 class SupportTicket(models.Model):
+    """Обращение в службу поддержки"""
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tickets')
     subject = models.CharField(max_length=200, verbose_name='Тема')
     message = models.TextField(verbose_name='Сообщение')
