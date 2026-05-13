@@ -46,6 +46,8 @@ if not DEBUG:
 
 # Приложения
 INSTALLED_APPS = [
+    'cloudinary',
+    'cloudinary_storage',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -148,3 +150,10 @@ DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'no-reply@fastfood.ru')
 
 # АВТОМАТИЧЕСКОЕ ПРОЕКТИРОВАНИЕ КЛЮЧА
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'ваш_cloud_name',
+    'API_KEY': 'ваш_api_key',
+    'API_SECRET': 'ваш_api_secret',
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
