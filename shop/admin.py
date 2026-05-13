@@ -8,12 +8,11 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('emoji', 'name', 'price', 'stock'))  # какие поля показывать
-    list_filter = ('category', 'stock')  # фильтры справа
-    search_fields = ('name', 'description')  # поиск
-    list_editable = ('price', 'stock')  # можно редактировать прямо в списке
-    list_display = ('emoji', 'name', 'price', 'stock', 'category')
-    fields = ('category', 'name', 'slug', 'description', 'price', 'stock', 'image', 'emoji')  
+    list_display = ('name', 'price', 'stock')
+    list_filter = ('category', 'stock')
+    search_fields = ('name', 'description')
+    prepopulated_fields = {'slug': ('name',)}
+    fields = ('category', 'name', 'slug', 'description', 'price', 'stock', 'image')
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
