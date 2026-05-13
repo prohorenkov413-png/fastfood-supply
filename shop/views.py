@@ -16,15 +16,8 @@ def home(request):
     return render(request, 'shop/home.html', {'products': products})
 
 def catalog(request):
-    categories = Category.objects.all()
-    selected_category = request.GET.get('category')
-    products = Product.objects.all()
-    if selected_category:
-        products = products.filter(category__slug=selected_category)
-    return render(request, 'shop/catalog.html', {
-        'categories': categories,
-        'products': products,
-        'selected_category': selected_category,
+    from django.http import HttpResponse
+    return HttpResponse("<h1>Каталог временно недоступен</h1><p>Идут технические работы</p>")
     })
 
 def product_detail(request, slug):
