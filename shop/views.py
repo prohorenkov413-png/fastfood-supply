@@ -6,18 +6,25 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.core.mail import send_mail
 from django.conf import settings
+from django.http import HttpResponse
 from .models import Category, Product, Order, OrderItem, SupportTicket
 from .forms import RegistrationForm, ProfileForm, SupportForm
 from decimal import Decimal
-from django.http import HttpResponse
 
 def home(request):
     products = Product.objects.all()[:6]
     return render(request, 'shop/home.html', {'products': products})
 
 def catalog(request):
-    from django.http import HttpResponse
-    return HttpResponse("<h1>Каталог временно недоступен</h1><p>Идут технические работы</p>")
+    categories = Category.objects.all()
+    selected_category = request.GET.get('category')
+    products = Product.objects.all()
+    if selected_category:
+        products = products.filter(category__slug=selected_category)
+    return render(request, 'shop/catalog.html', {
+        'categories': categories,
+        'products': products,
+        'selected_category': selected_category,
     })
 
 def product_detail(request, slug):
@@ -37,6 +44,7 @@ def register(request):
     else:
         form = RegistrationForm()
     return render(request, 'shop/register.html', {'form': form})
+
 @login_required
 def profile(request):
     if request.method == 'POST':
@@ -60,12 +68,12 @@ def support(request):
             ticket.save()
             send_mail(
                 f'Поддержка FastFood: {ticket.subject}',
-                f'Здравствуйте, {request.user.username}!\n\nВаше обращение получено.\nТема: {ticket.subject}\n\nМы ответим вам в ближайшее время.\n\n---\nВаше сообщение:\n{ticket.message}',
+                f'Ваше обращение получено!\n\n{ticket.message}',
                 settings.DEFAULT_FROM_EMAIL,
                 [request.user.email],
                 fail_silently=True,
             )
-            messages.success(request, 'Ваше обращение отправлено! Ответ придёт на почту.')
+            messages.success(request, 'Ваше обращение отправлено!')
             return redirect('home')
     else:
         form = SupportForm()
@@ -126,7 +134,7 @@ def remove_from_cart(request, product_id):
 def checkout(request):
     cart = request.session.get('cart', {})
     if not cart:
-        messages.warning(request, 'Корзина пуста! Добавьте товары перед оформлением.')
+        messages.warning(request, 'Корзина пуста!')
         return redirect('catalog')
     
     if request.method == 'POST':
@@ -155,7 +163,7 @@ def checkout(request):
         order.save()
         
         request.session['cart'] = {}
-        messages.success(request, f'Заказ #{order.id} успешно оформлен! Спасибо за покупку!')
+        messages.success(request, f'Заказ #{order.id} оформлен!')
         return redirect('profile')
     
     total = Decimal('0')
@@ -166,41 +174,5 @@ def checkout(request):
     return render(request, 'shop/checkout.html', {
         'total': total,
         'delivery_methods': ['Курьером', 'Самовывоз', 'Почта России'],
-        'payment_methods': ['Наличными при получении', 'Картой онлайн', 'Безналичный расчёт'],
+        'payment_methods': ['Наличными', 'Картой онлайн', 'Безналичный расчёт'],
     })
-
-def debug_images(request):
-    from shop.models import Product
-    result = "<h1>Отладка картинок</h1>"
-    for p in Product.objects.all():
-        result += f"<p><strong>{p.name}</strong><br>"
-        result += f"image поле: {p.image}<br>"
-        result += f"URL: {p.image.url if p.image else 'НЕТ КАРТИНКИ'}</p>"
-    return HttpResponse(result)
-from django.contrib.auth import get_user_model
-User = get_user_model()
-
-# Вывести всех пользователей в консоль (логи Render)
-print("=== ВСЕ ПОЛЬЗОВАТЕЛИ В БАЗЕ ===")
-for u in User.objects.all():
-    print(f"Логин: {u.username}, Email: {u.email}, ID: {u.id}")
-print("================================")
-
-def debug_images(request):
-    from shop.models import Product
-    from django.http import HttpResponse
-    result = "<h1>Отладка картинок</h1>"
-    for p in Product.objects.all():
-        result += f"<p><strong>{p.name}</strong><br>"
-        result += f"image поле: {p.image}<br>"
-        result += f"URL: {p.image.url if p.image else 'НЕТ КАРТИНКИ'}</p>"
-    return HttpResponse(result)
-
-def get_emoji(product):
-    emojis = {
-        'Упаковка': '📦',
-        'Бургер-бокс': '🍔',
-        'Перчатки': '🧤',
-        'Стаканы': '🥤',
-    }
-    return emojis.get(product.name, '🍽️')
