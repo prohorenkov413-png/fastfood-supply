@@ -1,25 +1,38 @@
 {% extends 'shop/base.html' %}
 {% block content %}
 
-<div class="product-detail">
-   <div style="width: 100%; max-width: 400px; height: 300px; background: #1e1e1e; display: flex; align-items: center; justify-content: center; border-radius: 16px;">
-    <span style="font-size: 80px;">🍔</span>
-</div>
+<div class="product-detail" style="display: flex; gap: 40px; background: #2d2d2d; padding: 35px; border-radius: 20px; margin: 30px 0; border: 1px solid #3d3d3d;">
     
-    <div class="product-info">
-        <h1>{{ product.name }}</h1>
-        <div class="price">{{ product.price }} ₽</div>
-        <p style="color: #00a650; margin: 10px 0;">
-            {% if product.stock > 0 %}В наличии ({{ product.stock }} шт){% else %}Нет в наличии{% endif %}
+    <!-- Эмодзи товара (большое) -->
+    <div style="width: 300px; height: 300px; background: #1e1e1e; display: flex; align-items: center; justify-content: center; border-radius: 20px; border: 1px solid #3d3d3d;">
+        <span style="font-size: 120px;">
+            {% if product.emoji %}
+                {{ product.emoji }}
+            {% else %}
+                🍔
+            {% endif %}
+        </span>
+    </div>
+    
+    <div style="flex: 1;">
+        <h1 style="font-size: 32px; margin-bottom: 15px; color: white;">{{ product.name }}</h1>
+        
+        <div style="font-size: 28px; color: #adadad; font-weight: 700; margin: 15px 0;">{{ product.price }} ₽</div>
+        
+        <p style="color: #00aa66; margin: 10px 0;">
+            {% if product.stock > 0 %}✅ В наличии ({{ product.stock }} шт){% else %}❌ Нет в наличии{% endif %}
         </p>
-        <p style="margin: 20px 0; line-height: 1.6;">{{ product.description }}</p>
+        
+        <p style="margin: 20px 0; line-height: 1.6; color: #cccccc;">{{ product.description }}</p>
         
         <form method="post" action="/add-to-cart/{{ product.id }}/">
             {% csrf_token %}
-            <button type="submit">🛒 Добавить в корзину</button>
+            <button type="submit" style="background: #6b6b6b; color: #1a1a1a; font-weight: 700; border: none; padding: 14px 28px; border-radius: 40px; font-size: 16px; cursor: pointer;">
+                🛒 Добавить в корзину
+            </button>
         </form>
         
-        <a href="/catalog/" style="display: inline-block; margin-top: 20px; color: #ff6b00;">← Назад в каталог</a>
+        <a href="/catalog/" style="display: inline-block; margin-top: 20px; color: #adadad;">← Назад в каталог</a>
     </div>
 </div>
 
