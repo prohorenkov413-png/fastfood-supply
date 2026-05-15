@@ -88,6 +88,9 @@ for slug_cat, name, slug_prod, desc, price, stock, emoji in products_data:
 
 print("✅ База данных заполнена!")
 
+def payment_not_available(request):
+    return render(request, 'shop/payment_not_available.html')
+
 def home(request):
     products = Product.objects.all()[:6]
     return render(request, 'shop/home.html', {'products': products})
@@ -218,6 +221,10 @@ def checkout(request):
         delivery_method = request.POST.get('delivery_method')
         payment_method = request.POST.get('payment_method')
         
+        # Если выбрана оплата картой или безналом — показываем заглушку
+        if payment_method in ['Картой онлайн', 'Безналичный расчёт']:
+            return redirect('payment_not_available')
+        
         order = Order.objects.create(
             user=request.user,
             delivery_method=delivery_method,
@@ -240,7 +247,7 @@ def checkout(request):
         order.save()
         
         request.session['cart'] = {}
-        messages.success(request, f'Заказ #{order.id} оформлен!')
+        messages.success(request, f'Заказ #{order.id} оформлен! Оплата при получении.')
         return redirect('profile')
     
     total = Decimal('0')
@@ -251,5 +258,5 @@ def checkout(request):
     return render(request, 'shop/checkout.html', {
         'total': total,
         'delivery_methods': ['Курьером', 'Самовывоз', 'Почта России'],
-        'payment_methods': ['Наличными', 'Картой онлайн', 'Безналичный расчёт'],
+        'payment_methods': ['Наличными при получении', 'Картой онлайн', 'Безналичный расчёт'],
     })

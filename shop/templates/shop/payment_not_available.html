@@ -1,0 +1,40 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+
+<div style="max-width: 600px; margin: 80px auto; text-align: center;">
+    
+    <div style="background: #2d2d2d; border-radius: 30px; padding: 50px 40px; border: 1px solid #3d3d3d;">
+        
+        <!-- Грустный/улыбающийся эмодзи -->
+        <div style="font-size: 80px; margin-bottom: 20px;">😅</div>
+        
+        <h1 style="font-size: 28px; margin-bottom: 15px; color: white;">Это работа бедного студента</h1>
+        
+        <p style="font-size: 18px; color: #aaaaaa; margin-bottom: 20px;">
+            К сожалению, оплата картой временно недоступна 💳❌
+        </p>
+        
+        <p style="font-size: 16px; color: #888888; margin-bottom: 30px;">
+            Данной фирмы пока нет, но мы работаем над этим!<br>
+            Увидимся, когда всё будет гуд 🚀
+        </p>
+        
+        <div style="background: #1e1e1e; border-radius: 20px; padding: 20px; margin-bottom: 30px; border: 1px solid #3d3d3d;">
+            <p style="color: #cccccc; margin-bottom: 5px;">💡 А пока можно:</p>
+            <p style="color: #adadad;">Оплатить заказ наличными при получении</p>
+        </div>
+        
+        <div style="display: flex; gap: 15px; justify-content: center;">
+            <a href="/checkout/" style="padding: 12px 24px; background: #1e1e1e; color: #cccccc; text-decoration: none; border-radius: 40px; border: 1px solid #3d3d3d;">← Назад</a>
+            <a href="/cart/" style="padding: 12px 24px; background: #6b6b6b; color: white; text-decoration: none; border-radius: 40px;">🛒 В корзину</a>
+        </div>
+        
+    </div>
+    
+    <div style="margin-top: 30px; font-size: 14px; color: #666;">
+        😊 Скоро всё заработает! Следите за обновлениями
+    </div>
+    
+</div>
+
+{% endblock %}
