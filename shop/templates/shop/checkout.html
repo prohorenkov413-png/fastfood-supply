@@ -1,33 +1,65 @@
 {% extends 'shop/base.html' %}
 {% block content %}
-<h1>Оформление заказа</h1>
 
-<p><strong>Сумма заказа:</strong> <span class="price">{{ total }} ₽</span></p>
+<div style="max-width: 600px; margin: 50px auto;">
+    
+    <!-- Заголовок -->
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h1 style="font-size: 32px; margin-bottom: 10px; color: white;">📋 Оформление заказа</h1>
+        <p style="color: #aaaaaa;">Заполните данные для доставки</p>
+    </div>
+    
+    <!-- Карточка оформления -->
+    <div style="background: #2d2d2d; border-radius: 24px; padding: 30px; border: 1px solid #3d3d3d;">
+        
+        <!-- Сумма заказа -->
+        <div style="background: #1e1e1e; border-radius: 16px; padding: 20px; margin-bottom: 25px; text-align: center; border: 1px solid #3d3d3d;">
+            <div style="font-size: 14px; color: #aaaaaa; margin-bottom: 8px;">Сумма к оплате</div>
+            <div style="font-size: 36px; font-weight: 700; color: #adadad;">{{ total }} ₽</div>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- Способ доставки -->
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; margin-bottom: 10px; font-weight: 500; color: white;">🚚 Способ доставки</label>
+                <select name="delivery_method" style="width: 100%; padding: 14px 16px; background: #1e1e1e; border: 1px solid #3d3d3d; border-radius: 12px; color: white; font-size: 15px; cursor: pointer;">
+                    {% for method in delivery_methods %}
+                        <option value="{{ method }}">{{ method }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <!-- Способ оплаты -->
+            <div style="margin-bottom: 30px;">
+                <label style="display: block; margin-bottom: 10px; font-weight: 500; color: white;">💳 Способ оплаты</label>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    {% for method in payment_methods %}
+                    <label style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #1e1e1e; border: 1px solid #3d3d3d; border-radius: 12px; cursor: pointer;">
+                        <input type="radio" name="payment_method" value="{{ method }}" {% if forloop.first %}checked{% endif %} style="width: 18px; height: 18px; cursor: pointer;">
+                        <span style="color: white;">{{ method }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Кнопки -->
+            <div style="display: flex; gap: 15px;">
+                <a href="/cart/" style="flex: 1; text-align: center; padding: 14px; background: #1e1e1e; color: #cccccc; text-decoration: none; border-radius: 40px; border: 1px solid #3d3d3d; font-weight: 500;">← Назад</a>
+                <button type="submit" style="flex: 2; background: #6b6b6b; color: white; font-weight: 700; padding: 14px; border: none; border-radius: 40px; font-size: 16px; cursor: pointer; transition: all 0.2s;">
+                    ✅ Подтвердить заказ
+                </button>
+            </div>
+            
+        </form>
+    </div>
+    
+    <!-- Инфо-блок -->
+    <div style="margin-top: 20px; text-align: center; font-size: 12px; color: #666;">
+        <p>Нажимая «Подтвердить заказ», вы соглашаетесь с условиями доставки</p>
+    </div>
+    
+</div>
 
-<form method="post">
-    {% csrf_token %}
-    
-    <p>
-        <label><strong>Способ доставки:</strong></label><br>
-        <select name="delivery_method">
-            {% for method in delivery_methods %}
-                <option>{{ method }}</option>
-            {% endfor %}
-        </select>
-    </p>
-    
-    <p>
-        <label><strong>Способ оплаты:</strong></label><br>
-        <select name="payment_method">
-            {% for method in payment_methods %}
-                <option>{{ method }}</option>
-            {% endfor %}
-        </select>
-    </p>
-    
-    <button type="submit">Подтвердить заказ</button>
-</form>
-
-<br>
-<a href="/cart/">← Назад к корзине</a>
-{% endblock %} 
+{% endblock %}
